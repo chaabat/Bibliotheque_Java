@@ -27,7 +27,7 @@ public class Livre extends Document {
              System.out.println("Le livre " + titre + " a n'a pas emprunté pour le retourner.");
          }else{
              emprunte=false;
-             System.out.println("Le livre " + titre + " a été retourné.");
+             System.out.println("Le livre " + titre + " a été retourné avec succès.");
 
          }
     }

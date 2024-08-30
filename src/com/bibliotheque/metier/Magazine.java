@@ -15,7 +15,7 @@ public class Magazine extends Document {
             System.out.println("Le magazine " + titre + " a déja emprunté.");
 
         }else {
-
+            emprunte = true;
             System.out.println("Le magazine " + titre + " a été emprunté avec succès.");
         }
     }
@@ -26,6 +26,7 @@ public class Magazine extends Document {
 
             System.out.println("Le magazine " + titre + " a n'a pas emprunté pour le retourner.");
         }else {
+            emprunte = false;
             System.out.println("Le magazine " + titre + " a été retourné avec succès.");
 
         }

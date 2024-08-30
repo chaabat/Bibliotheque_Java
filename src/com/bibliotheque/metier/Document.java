@@ -32,6 +32,28 @@ public abstract class Document {
         return titre;
     }
 
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public LocalDate getDatePublication() {
+        return datePublication;
+    }
+
+    public int getNombreDePages() {
+        return nombreDePages;
+    }
+
+    // Getter et Setter pour emprunte
+    public boolean isEmprunte() {
+        return emprunte;
+    }
+
+    public void setEmprunte(boolean emprunte) {
+        this.emprunte = emprunte;
+    }
+
+// Les méthodes abstraites
 
    public abstract void emprunter();
 

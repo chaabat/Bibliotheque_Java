@@ -8,6 +8,8 @@ import com.bibliotheque.metier.Magazine;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import static java.awt.Color.BLUE;
+
 public class ConsoleUI {
     private Bibliotheque bibliotheque;
     private Scanner scanner;
@@ -63,19 +65,52 @@ public class ConsoleUI {
     }
 
     private void ajouterDocument() {
-        System.out.print("Type de document (1 - Livre, 2 - Magazine) : ");
-        int type = scanner.nextInt();
-        scanner.nextLine(); // Consommer le retour à la ligne
+        int type = 0;
+        while (true) {
+            System.out.print("Type de document (1 - Livre, 2 - Magazine) : ");
+            if (scanner.hasNextInt()) {
+                type = scanner.nextInt();
+                scanner.nextLine(); // Consommer le retour à la ligne
+                if (type == 1 || type == 2) {
+                    break; // Sortir de la boucle si la saisie est valide
+                } else {
+                    System.out.println("Type invalide. Veuillez entrer 1 pour Livre ou 2 pour Magazine.");
+                }
+            } else {
+                System.out.println("Veuillez entrer un nombre entier (1 ou 2).");
+                scanner.next(); // Consommer l'entrée non valide
+            }
+        }
+
         System.out.print("Titre : ");
         String titre = scanner.nextLine();
+
         System.out.print("Auteur : ");
         String auteur = scanner.nextLine();
-        System.out.print("Date de publication (yyyy-mm-dd) : ");
-        String dateStr = scanner.nextLine();
-        LocalDate datePublication = LocalDate.parse(dateStr);
-        System.out.print("Nombre de pages : ");
-        int nombreDePages = scanner.nextInt();
-        scanner.nextLine(); // Consommer le retour à la ligne
+
+        LocalDate datePublication = null;
+        while (datePublication == null) {
+            System.out.print("Date de publication (yyyy-mm-dd) : ");
+            String dateStr = scanner.nextLine();
+            try {
+                datePublication = LocalDate.parse(dateStr);
+            } catch (Exception e) {
+                System.out.println("Format de date invalide. Veuillez entrer une date au format yyyy-mm-dd.");
+            }
+        }
+
+        int nombreDePages = 0;
+        while (true) {
+            System.out.print("Nombre de pages : ");
+            if (scanner.hasNextInt()) {
+                nombreDePages = scanner.nextInt();
+                scanner.nextLine(); // Consommer le retour à la ligne
+                break; // Sortir de la boucle si la saisie est valide
+            } else {
+                System.out.println("Veuillez entrer un nombre entier pour le nombre de pages.");
+                scanner.next(); // Consommer l'entrée non valide
+            }
+        }
 
         if (type == 1) {
             System.out.print("ISBN : ");
@@ -84,16 +119,24 @@ public class ConsoleUI {
             bibliotheque.ajouterDocument(livre);
             System.out.println("Livre ajouté avec succès.");
         } else if (type == 2) {
-            System.out.print("Numéro de magazine : ");
-            int numero = scanner.nextInt();
-            scanner.nextLine(); // Consommer le retour à la ligne
+            int numero = 0;
+            while (true) {
+                System.out.print("Numéro de magazine : ");
+                if (scanner.hasNextInt()) {
+                    numero = scanner.nextInt();
+                    scanner.nextLine(); // Consommer le retour à la ligne
+                    break; // Sortir de la boucle si la saisie est valide
+                } else {
+                    System.out.println("Veuillez entrer un nombre entier pour le numéro de magazine.");
+                    scanner.next(); // Consommer l'entrée non valide
+                }
+            }
             Document magazine = new Magazine(bibliotheque.getNextId(), titre, auteur, datePublication, nombreDePages, numero);
             bibliotheque.ajouterDocument(magazine);
             System.out.println("Magazine ajouté avec succès.");
-        } else {
-            System.out.println("Type invalide.");
         }
     }
+
 
     private void emprunterDocument() {
         System.out.print("ID du document à emprunter : ");

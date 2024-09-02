@@ -29,9 +29,23 @@ public class ConsoleUI {
             System.out.println("4. Afficher tous les documents");
             System.out.println("5. Rechercher un document");
             System.out.println("6. Quitter");
-            System.out.print("Veuillez entrer votre choix (1-6) : ");
-            choix = scanner.nextInt();
-            scanner.nextLine();  // Consommer le retour à la ligne
+
+            boolean choixValide = false;
+            while (!choixValide) {
+                System.out.print("Veuillez entrer votre choix (1-6) : ");
+                if (scanner.hasNextInt()) {
+                    choix = scanner.nextInt();
+                    scanner.nextLine();  // Consommer le retour à la ligne
+                    if (choix >= 1 && choix <= 6) {
+                        choixValide = true;
+                    } else {
+                        System.out.println("Choix invalide, veuillez entrer un nombre entre 1 et 6.");
+                    }
+                } else {
+                    System.out.println("Entrée non valide, veuillez entrer un nombre entier.");
+                    scanner.next(); // Consommer l'entrée non valide
+                }
+            }
 
             switch (choix) {
                 case 1:
@@ -64,21 +78,22 @@ public class ConsoleUI {
         } while (choix != 6);
     }
 
+
     private void ajouterDocument() {
         int type = 0;
         while (true) {
             System.out.print("Type de document (1 - Livre, 2 - Magazine) : ");
             if (scanner.hasNextInt()) {
                 type = scanner.nextInt();
-                scanner.nextLine(); // Consommer le retour à la ligne
+                scanner.nextLine();
                 if (type == 1 || type == 2) {
-                    break; // Sortir de la boucle si la saisie est valide
+                    break;
                 } else {
                     System.out.println("Type invalide. Veuillez entrer 1 pour Livre ou 2 pour Magazine.");
                 }
             } else {
                 System.out.println("Veuillez entrer un nombre entier (1 ou 2).");
-                scanner.next(); // Consommer l'entrée non valide
+                scanner.next();
             }
         }
 
@@ -104,11 +119,11 @@ public class ConsoleUI {
             System.out.print("Nombre de pages : ");
             if (scanner.hasNextInt()) {
                 nombreDePages = scanner.nextInt();
-                scanner.nextLine(); // Consommer le retour à la ligne
-                break; // Sortir de la boucle si la saisie est valide
+                scanner.nextLine();
+                break;
             } else {
                 System.out.println("Veuillez entrer un nombre entier pour le nombre de pages.");
-                scanner.next(); // Consommer l'entrée non valide
+                scanner.next();
             }
         }
 
@@ -124,11 +139,11 @@ public class ConsoleUI {
                 System.out.print("Numéro de magazine : ");
                 if (scanner.hasNextInt()) {
                     numero = scanner.nextInt();
-                    scanner.nextLine(); // Consommer le retour à la ligne
-                    break; // Sortir de la boucle si la saisie est valide
+                    scanner.nextLine();
+                    break;
                 } else {
                     System.out.println("Veuillez entrer un nombre entier pour le numéro de magazine.");
-                    scanner.next(); // Consommer l'entrée non valide
+                    scanner.next();
                 }
             }
             Document magazine = new Magazine(bibliotheque.getNextId(), titre, auteur, datePublication, nombreDePages, numero);
@@ -141,7 +156,7 @@ public class ConsoleUI {
     private void emprunterDocument() {
         System.out.print("ID du document à emprunter : ");
         int id = scanner.nextInt();
-        scanner.nextLine(); // Consommer le retour à la ligne
+        scanner.nextLine();
         Document doc = bibliotheque.rechercherDocumentParId(id);
         if (doc != null) {
             doc.emprunter();
@@ -153,7 +168,7 @@ public class ConsoleUI {
     private void retournerDocument() {
         System.out.print("ID du document à retourner : ");
         int id = scanner.nextInt();
-        scanner.nextLine(); // Consommer le retour à la ligne
+        scanner.nextLine();
         Document doc = bibliotheque.rechercherDocumentParId(id);
         if (doc != null) {
             doc.retourner();

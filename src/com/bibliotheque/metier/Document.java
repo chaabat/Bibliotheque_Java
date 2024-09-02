@@ -24,7 +24,7 @@ public abstract class Document {
     }
 
     //Getters
-    public int getID(){
+    public int getId(){
         return id;
     }
 

@@ -13,10 +13,10 @@ public class Livre extends Document {
      @Override
     public void emprunter() {
            if(emprunte){
-             System.out.println("Le livre" +titre+ "a déja emprunté ");
+             System.out.println("Le livre " + titre + " a déja emprunté ");
            }else{
                emprunte=true ;
-               System.out.println("Le livre" +titre+ "a été emprunté avec succès ");
+               System.out.println("Le livre " + titre + " a été emprunté avec succès ");
 
            }
     }

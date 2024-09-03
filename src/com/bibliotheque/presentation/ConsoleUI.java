@@ -8,7 +8,6 @@ import com.bibliotheque.metier.Magazine;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import static java.awt.Color.BLUE;
 
 public class ConsoleUI {
     private Bibliotheque bibliotheque;
